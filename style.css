@@ -1,0 +1,32 @@
+#container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 300px;
+  height: 500px;
+  margin: 0 auto;
+  border: 1px solid grey;
+  border-radius: 5%;
+}
+
+#display {
+  grid-column: 1 / span 4;
+  border: 1px solid black;
+  margin: 10px;
+}
+
+#zero {
+  grid-area: 6 / 1 / 6 / 3;
+}
+
+#period {
+  grid-column-start: 3;
+  grid-row-start: 6;
+}
+.operand {
+  grid-column: 1 / span 3;
+  grid-column-end: 4;
+}
+
+.operator {
+  grid-column-start: 4;
+}
