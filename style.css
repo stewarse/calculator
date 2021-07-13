@@ -1,32 +1,136 @@
+* {
+  color: #22223b;
+  font-size: 24px;
+}
+
 #container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 5px;
   width: 300px;
   height: 500px;
   margin: 0 auto;
-  border: 1px solid grey;
+  padding: 20px;
+  border: 1px solid black;
   border-radius: 5%;
+  background-color: #22223b;
+}
+
+#operand-wrapper {
+  /* grid-column: 1 / span 3; */
+  grid-area: 3 / 1 / 7 / 4;
+  grid-gap: 5px;
+  display: grid;
 }
 
 #display {
   grid-column: 1 / span 4;
   border: 1px solid black;
-  margin: 10px;
+  margin: 0 0 10px 0;
+  padding: 10%;
+  background-color: #f2e9e4;
+  text-align: right;
+  align-content: center;
 }
 
 #zero {
-  grid-area: 6 / 1 / 6 / 3;
+  grid-area: 4 / 1 / 5 / 3;
 }
 
 #period {
   grid-column-start: 3;
-  grid-row-start: 6;
-}
-.operand {
-  grid-column: 1 / span 3;
-  grid-column-end: 4;
+  grid-row-start: 4;
 }
 
 .operator {
   grid-column-start: 4;
+  background-color: #1f7a8c;
 }
+
+.admin {
+  background-color: #bbdbb4;
+}
+
+.operand {
+  background-color: #abdae1;
+}
+
+.key {
+  height: 50px;
+  width: 100px;
+}
+
+#c-22223B {
+  background-color: #22223b;
+  color: white;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+}
+#c-4A4E69 {
+  background-color: #4a4e69;
+  color: white;
+  position: fixed;
+  top: 50px;
+  right: 0px;
+}
+#c-9A8C98 {
+  background-color: #9a8c98;
+  color: white;
+  position: fixed;
+  top: 100px;
+  right: 0px;
+}
+#c-C9ADA7 {
+  background-color: #c9ada7;
+  color: white;
+  position: fixed;
+  top: 150px;
+  right: 0px;
+}
+#c-F2E9E4 {
+  background-color: #f2e9e4;
+  color: black;
+  position: fixed;
+  top: 200px;
+  right: 0px;
+}
+#c-1f7a8c {
+  background-color: #1f7a8c;
+  color: black;
+  position: fixed;
+  top: 250px;
+  right: 0px;
+}
+#c-987d7c {
+  background-color: #987d7c;
+  color: black;
+  position: fixed;
+  top: 300px;
+  right: 0px;
+}
+
+#c-abdae1 {
+  background-color: #abdae1;
+  color: black;
+  position: fixed;
+  top: 350px;
+  right: 0px;
+}
+
+#c-bbdbb4 {
+  background-color: #bbdbb4;
+  color: black;
+  position: fixed;
+  top: 400px;
+  right: 0px;
+}
+
+/* 
+--space-cadet: #22223b;
+--metallic-seaweed: #1f7a8c;
+--cinereous: #987d7c;
+--powder-blue: #abdae1;
+--celadon: #bbdbb4; 
+*/
