@@ -24,7 +24,7 @@
   display: grid;
 }
 
-#display {
+#display-screen {
   grid-column: 1 / span 4;
   border: 1px solid black;
   margin: 0 0 10px 0;

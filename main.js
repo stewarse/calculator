@@ -1,3 +1,10 @@
+const display = document.querySelector('#display-screen')
+const buttons = document.querySelectorAll('button')
+
+let displayVal = ''
+
+buttons.forEach((btn) => btn.addEventListener('click', updateDisplay))
+
 function operate(a, b, op) {
     switch(op) {
         case "+":
@@ -35,3 +42,10 @@ function divide(a, b) {
     }
     return a / b; 
 }
+
+function updateDisplay(e) {
+    console.log(e)
+    displayVal += e.currentTarget.dataset.key
+    display.textContent = displayVal;
+}
+
