@@ -1,26 +1,34 @@
 const display = document.querySelector('#display-screen')
-const buttons = document.querySelectorAll('button')
+const operands = document.querySelectorAll('.operand')
+const allClear = document.querySelector('#allClear')
+const operators = document.querySelectorAll('.operator')
 
-let displayVal = ''
+let displayVal = '';
+let numOne, numTwo, currentOperator = '';
+let total = 0
 
-buttons.forEach((btn) => btn.addEventListener('click', updateDisplay))
+operands.forEach((operand) => operand.addEventListener('click', updateDisplay))
+
+operators.forEach((operator) => operator.addEventListener('click', calculate))
+
+
 
 function operate(a, b, op) {
     switch(op) {
         case "+":
-            add(a,b)
+            value = add(a,b)
             break;
         case "-":
-            subtract(a,b)
+            value = subtract(a,b)
             break;
         case "x":
-            multiply(a,b)
+            value =multiply(a,b)
             break;
         case "/":
-            divide(a,b)
+            value = divide(a,b)
             break;
-
     }
+    return value;
 }
 
 function add(a, b) {
@@ -44,8 +52,32 @@ function divide(a, b) {
 }
 
 function updateDisplay(e) {
+
+    //Update this function to update display no matter what button is selected 
     console.log(e)
     displayVal += e.currentTarget.dataset.key
     display.textContent = displayVal;
 }
 
+function calculate(e) {
+    console.log(e)
+
+    if (currentOperator === '') {
+        setOperator(e)
+        numA = displayVal
+        displayVal = ''
+    } else if( e.currentTarget.dataset.key !== '=' ) {
+        numB = displayVal 
+        displayVal = operate(+numA, +numB, currentOperator)
+        display.textContent = displayVal
+    } else { 
+
+    // This will cover the scenario when a user clicks the = 
+
+    }
+    
+}
+
+function setOperator(e) {
+    currentOperator = e.currentTarget.dataset.key
+}

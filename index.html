@@ -11,9 +11,10 @@
     <h1>I'm a calculator right?</h1>
     <div id='container'>
         <div id="display-screen">5318008</div>
-        <button type="button" class="admin">AC</button>
-        <button type="button" class="admin">+/-</button>
-        <button type="button" class="admin">%</button>
+        <button type="button" id="allClear" class="admin">AC</button>
+        <button type="button" id="negate" class="admin">+/-</button>
+        <button type="button" id ="percent" class="admin">%</button>
+        <button type="button" id="clear"class="admin" hidden="true">C</button>
     <div id="operand-wrapper">
             <button type="button" class="operand" data-key="9">9</button>
             <button type="button" class="operand" data-key="8">8</button>
@@ -27,11 +28,11 @@
             <button type="button" class="operand" id="zero" data-key="0">0</button>
             <button type="button" class="operand" id="period" data-key=".">.</button>
     </div>
-        <button type="button" class="operator">/</button>
-        <button type="button" class="operator">x</button>
-        <button type="button" class="operator">-</button>
-        <button type="button" class="operator">+</button>
-        <button type="button" class="operator">=</button>
+        <button type="button" id="div" class="operator" data-key="/">/</button>
+        <button type="button" id="mult" class="operator" data-key="x">x</button>
+        <button type="button" id="sub" class="operator" data-key="-">-</button>
+        <button type="button" id="add" class="operator" data-key="+">+</button>
+        <button type="button" id="equal" class="operator equal" data-key="=">=</button>
 
     </div>
     <div id="key">
