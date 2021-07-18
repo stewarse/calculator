@@ -60,6 +60,9 @@
   width: 100px;
 }
 
+/* 
+ * Color Legend  
+*/
 #c-22223B {
   background-color: #22223b;
   color: white;
@@ -125,11 +128,3 @@
   top: 400px;
   right: 0px;
 }
-
-/* 
---space-cadet: #22223b;
---metallic-seaweed: #1f7a8c;
---cinereous: #987d7c;
---powder-blue: #abdae1;
---celadon: #bbdbb4; 
-*/
