@@ -1,6 +1,7 @@
 const display = document.querySelector('#display-screen')
 const operands = document.querySelectorAll('.operand')
 const clearBtn = document.querySelector('.clear')
+const percent = document.querySelector('#percent')
 
 const operators = document.querySelectorAll('.operator')
 
@@ -16,6 +17,8 @@ operands.forEach((operand) => operand.addEventListener('click', updateDisplay))
 operators.forEach((operator) => operator.addEventListener('click', calculate))
 
 clearBtn.addEventListener('click', clear)
+
+percent.addEventListener('click', getPercentage)
 
 function operate(a, b, op) {
     switch(op) {
@@ -56,18 +59,26 @@ function divide(a, b) {
 }
 
 function updateDisplay(e) {
-    if(displayVal === '0' && clearBtn.id === 'allClear') {
-        displayVal = ''
-        clearBtn.textContent = 'C'
-        clearBtn.id = 'clear'
-    } else if (displayVal === '0') { 
-        displayVal = ''
-    }
+    // if(displayVal === '0' && clearBtn.id === 'allClear') {
+    //     displayVal = ''
+    //     clearBtn.textContent = 'C'
+    //     clearBtn.id = 'clear'
+    // // } else if (displayVal === '0') { 
+    // //     displayVal = ''
+    // }
     if (e.target.classList[0]  === 'operand' && currentOperator !== '='){
+        if (clearBtn.id === 'allClear') {
+            displayVal = ''
+            clearBtn.textContent = 'C'
+            clearBtn.id = 'clear'
+        } 
+        // if (displayVal === '0') {
+        //     displayVal = ''
+        // }
         display.textContent = displayVal += e.target.dataset.key
     } else {
         display.textContent = displayVal
-        displayVal = ''
+        // displayVal = ''
     }
 }
 
@@ -77,7 +88,7 @@ function calculate(e) {
     if (currentOperator === '') {
         setOperator(e)
         numA = displayVal
-        displayVal = '0'
+        displayVal = ''
     } else if (e.target.dataset.key === '=' && numB !== '') {
         numA = displayVal = operate(+numA, +numB, currentOperator)
         updateDisplay(e)
@@ -94,7 +105,7 @@ function setOperator(e) {
 }
 
 function clear(e) {
-    if(clearBtn.id = 'clear'){
+    if(clearBtn.id === 'clear'){
         displayVal = '0'
         updateDisplay(e)
         clearBtn.id = 'allClear'
@@ -102,6 +113,11 @@ function clear(e) {
     } else {
         displayVal = numA = numB = currentOperator = ''
     }
+} 
+
+function getPercentage(e) {
+    displayVal /= 100;
+    updateDisplay(e)
 }
 
 /****
