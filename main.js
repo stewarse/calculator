@@ -2,6 +2,7 @@ const display = document.querySelector('#display-screen')
 const operands = document.querySelectorAll('.operand')
 const clearBtn = document.querySelector('.clear')
 const percent = document.querySelector('#percent')
+const negate = document.querySelector('#negate')
 
 const operators = document.querySelectorAll('.operator')
 
@@ -11,6 +12,7 @@ let numA = '';
 let numB = '';
 let currentOperator = '';
 let operatorArr =['+', '-', '*', '/','=']
+let counter = 0;
 
 operands.forEach((operand) => operand.addEventListener('click', updateDisplay))
 
@@ -19,6 +21,8 @@ operators.forEach((operator) => operator.addEventListener('click', calculate))
 clearBtn.addEventListener('click', clear)
 
 percent.addEventListener('click', getPercentage)
+
+negate.addEventListener('click',changeSign)
 
 function operate(a, b, op) {
     switch(op) {
@@ -29,7 +33,7 @@ function operate(a, b, op) {
             value = subtract(a,b)
             break;
         case "*":
-            value =multiply(a,b)
+            value = multiply(a,b)
             break;
         case "/":
             value = divide(a,b)
@@ -59,43 +63,38 @@ function divide(a, b) {
 }
 
 function updateDisplay(e) {
-    // if(displayVal === '0' && clearBtn.id === 'allClear') {
-    //     displayVal = ''
-    //     clearBtn.textContent = 'C'
-    //     clearBtn.id = 'clear'
-    // // } else if (displayVal === '0') { 
-    // //     displayVal = ''
-    // }
-    if (e.target.classList[0]  === 'operand' && currentOperator !== '='){
-        if (clearBtn.id === 'allClear') {
+
+    if(counter <= 15) {
+        if (e.target.classList[0]  === 'operand' && currentOperator !== '='){
+            if (clearBtn.id === 'allClear') {
             displayVal = ''
             clearBtn.textContent = 'C'
             clearBtn.id = 'clear'
-        } 
-        // if (displayVal === '0') {
-        //     displayVal = ''
-        // }
-        display.textContent = displayVal += e.target.dataset.key
-    } else {
-        display.textContent = displayVal
-        // displayVal = ''
+            } 
+            display.textContent = displayVal += e.target.dataset.key
+        } else {
+            display.textContent = displayVal
+        }
+        counter++;
     }
 }
 
 function calculate(e) {
-    console.log(e)
-
     if (currentOperator === '') {
         setOperator(e)
         numA = displayVal
         displayVal = ''
     } else if (e.target.dataset.key === '=' && numB !== '') {
-        numA = displayVal = operate(+numA, +numB, currentOperator)
-        updateDisplay(e)
+        numB = displayVal;
+        numA = displayVal = operate(+numA, +numB, currentOperator);
+        updateDisplay(e);
     } else {
         numB = displayVal;
-        numA = displayVal = operate(+numA, +numB, currentOperator)
-        updateDisplay(e)
+        numA = displayVal = operate(+numA, +numB, currentOperator);
+        setOperator(e);
+        updateDisplay(e);
+        displayVal = '';
+        counter = 0;
     }
 }
 
@@ -106,17 +105,24 @@ function setOperator(e) {
 
 function clear(e) {
     if(clearBtn.id === 'clear'){
-        displayVal = '0'
-        updateDisplay(e)
-        clearBtn.id = 'allClear'
-        clearBtn.textContent = 'AC'
+        displayVal = '0';
+        counter = 0;
+        updateDisplay(e);
+        clearBtn.id = 'allClear';
+        clearBtn.textContent = 'AC';
     } else {
-        displayVal = numA = numB = currentOperator = ''
+        displayVal = numA = numB = currentOperator = '';
+        counter = 0;
     }
 } 
 
 function getPercentage(e) {
     displayVal /= 100;
+    updateDisplay(e)
+}
+
+function changeSign(e) {
+    displayVal = displayVal[0] !== '-' ? '-' + displayVal : displayVal.slice(1)
     updateDisplay(e)
 }
 
@@ -144,7 +150,9 @@ function getPercentage(e) {
 
 /***
  * Optional tasks:
- * Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1
+ * Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1 DONE
  * Selected state for operator buttons
- * Update AC to just clear the latest number  
+ * Update AC to just clear the latest number DONE
+ * Keyboard functionality
+ * 
  */

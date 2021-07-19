@@ -19,8 +19,47 @@
 
 #operand-wrapper {
   grid-area: 3 / 1 / 7 / 4;
+  grid-template-areas:
+    "seven eight nine"
+    "four five six"
+    "one two three";
   grid-gap: 5px;
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+#one {
+  grid-area: one;
+}
+#two {
+  grid-area: two;
+}
+#three {
+  grid-area: three;
+}
+#four {
+  grid-area: four;
+}
+#five {
+  grid-area: five;
+}
+#six {
+  grid-area: six;
+}
+#seven {
+  grid-area: seven;
+}
+#eight {
+  grid-area: eight;
+}
+#nine {
+  grid-area: nine;
+}
+#row-1 {
+  /* row-start / column-start / row-end / column-end */
+  display: grid;
+  grid-area: 3 / 1 / 4 / 4;
+  grid-auto-rows: auto;
 }
 
 #display-screen {
@@ -40,6 +79,10 @@
 #period {
   grid-column-start: 3;
   grid-row-start: 4;
+}
+
+#current-operator {
+  background-color: #3fbcd5;
 }
 
 .operator {
