@@ -110,6 +110,7 @@ function clear(e) {
         updateDisplay(e);
         clearBtn.id = 'allClear';
         clearBtn.textContent = 'AC';
+
     } else {
         displayVal = numA = numB = currentOperator = '';
         counter = 0;
@@ -126,33 +127,19 @@ function changeSign(e) {
     updateDisplay(e)
 }
 
-/****
- * five 
- *  - display the number 5
- *  - store 5 for use in calcs
- *  plus 
- *  - store the operator 
- *  - move the number to a new variable to use in calculations
- *  - reset display val
- * four  
- *  - display the number 4
- *  - store 4 for use in calcs (add subsequent numbers as well)
- * minus 
- *  - call operate based on existing operator
- *  - replace display number with the result
- *  - display results
- *  - set numA = displayVal
- *  - clear displayVal
- * three 
- */
+function selectOp(e) {
+    e.target.id = "current-operator"
+}
 
+function clearSelectedOp(e) {
+    e.target.id = ""
+}
 
 
 /***
  * Optional tasks:
- * Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1 DONE
- * Selected state for operator buttons
- * Update AC to just clear the latest number DONE
+ * Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1 - DONE
+ * Selected state for operator buttons - In Progress
+ * Update AC to just clear the latest number - DONE
  * Keyboard functionality
- * 
  */
