@@ -16,7 +16,9 @@ let counter = 0;
 
 operands.forEach((operand) => operand.addEventListener('click', updateDisplay))
 
-operators.forEach((operator) => operator.addEventListener('click', calculate))
+window.addEventListener('keypress', getKey)
+
+operators.forEach((operator) => operator.addEventListener('click', evaluate))
 
 clearBtn.addEventListener('click', clear)
 
@@ -63,15 +65,16 @@ function divide(a, b) {
 }
 
 function updateDisplay(e) {
+    let temp = e.type === 'keypress' ? e.key : e.target.dataset.key
 
     if(counter <= 15) {
-        if (e.target.classList[0]  === 'operand' && currentOperator !== '='){
+        if ((e.target.classList[0]  === 'operand' && currentOperator !== '=') || (e.type === 'keypress' && currentOperator !== '=' && operatorArr.indexOf(e.key) === -1)){
             if (clearBtn.id === 'allClear') {
-            displayVal = ''
-            clearBtn.textContent = 'C'
-            clearBtn.id = 'clear'
+                displayVal = ''
+                clearBtn.textContent = 'C'
+                clearBtn.id = 'clear'
             } 
-            display.textContent = displayVal += e.target.dataset.key
+            display.textContent = displayVal += temp
         } else {
             display.textContent = displayVal
         }
@@ -79,15 +82,15 @@ function updateDisplay(e) {
     }
 }
 
-function calculate(e) {
-    if (currentOperator === '') {
+function evaluate(e) {
+    if (currentOperator === '' || currentOperator === '=' ) {
         setOperator(e)
         numA = displayVal
         displayVal = ''
-    } else if (e.target.dataset.key === '=' && numB !== '') {
-        numB = displayVal;
-        numA = displayVal = operate(+numA, +numB, currentOperator);
-        updateDisplay(e);
+    // } else if (e.target.dataset.key === '=' && numB !== '') {
+    //     numB = displayVal;
+    //     numA = displayVal = operate(+numA, +numB, currentOperator);
+    //     updateDisplay(e);
     } else {
         numB = displayVal;
         numA = displayVal = operate(+numA, +numB, currentOperator);
@@ -100,7 +103,7 @@ function calculate(e) {
 
 
 function setOperator(e) {
-    currentOperator = e.target.dataset.key
+    currentOperator = e.type === 'keypress' ? e.key : e.target.dataset.key
 }
 
 function clear(e) {
@@ -128,6 +131,7 @@ function changeSign(e) {
 }
 
 function selectOp(e) {
+    console.log(e)
     e.target.id = "current-operator"
 }
 
@@ -135,6 +139,9 @@ function clearSelectedOp(e) {
     e.target.id = ""
 }
 
+function getKey (e) {
+    operatorArr.indexOf(e.key) === -1 ? updateDisplay(e) : evaluate(e)
+}
 
 /***
  * Optional tasks:
