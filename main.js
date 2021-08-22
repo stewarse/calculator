@@ -128,6 +128,7 @@ function clear(e) {
         updateDisplay(e);
         clearBtn.id = 'allClear';
         clearBtn.textContent = 'AC';
+        clearSelectedOp()
 
     } else {
         displayVal = numA = numB = currentOperator = '';
@@ -146,11 +147,10 @@ function changeSign(e) {
 }
 
 function selectOp(e) {
-    console.log(e)
     e.target.id = "current-operator"
 }
 
-function clearSelectedOp(e) {
+function clearSelectedOp() {
     let selectedOp = document.querySelector('.selected')
     if (selectedOp) {
         selectedOp.classList.remove("selected")
