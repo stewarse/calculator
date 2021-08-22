@@ -108,6 +108,11 @@ h1 {
   width: 100px;
 }
 
+.selected {
+  background-color: #c9ada7;
+  border: 2px solid white;
+}
+
 /* 
  * Color Legend  
 */

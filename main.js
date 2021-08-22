@@ -11,7 +11,7 @@ let displayVal = '0';
 let numA = '';
 let numB = '';
 let currentOperator = '';
-let operatorArr =['+', '-', '*', '/','=']
+let operatorArr =['+', '-', '*', '/','=','Enter']
 let counter = 0;
 
 operands.forEach((operand) => operand.addEventListener('click', updateDisplay))
@@ -66,9 +66,11 @@ function divide(a, b) {
 
 function updateDisplay(e) {
     let temp = e.type === 'keypress' ? e.key : e.target.dataset.key
+    console.log(e.target.classList)
 
     if(counter <= 15) {
-        if ((e.target.classList[0]  === 'operand' && currentOperator !== '=') || (e.type === 'keypress' && currentOperator !== '=' && operatorArr.indexOf(e.key) === -1)){
+        if ((e.target.classList[0]  === 'operand' && e.key !== 'Enter' && e.key !== '=') || (e.type === 'keypress' && currentOperator !== '=' && operatorArr.indexOf(e.key) === -1)){
+                displayVal = ''
             if (clearBtn.id === 'allClear') {
                 displayVal = ''
                 clearBtn.textContent = 'C'
@@ -83,27 +85,40 @@ function updateDisplay(e) {
 }
 
 function evaluate(e) {
-    if (currentOperator === '' || currentOperator === '=' ) {
+    if (currentOperator === '' /*|| currentOperator === '='*/ ) {
         setOperator(e)
         numA = displayVal
         displayVal = ''
-    // } else if (e.target.dataset.key === '=' && numB !== '') {
-    //     numB = displayVal;
-    //     numA = displayVal = operate(+numA, +numB, currentOperator);
-    //     updateDisplay(e);
+    } else if (currentOperator === '=') {
+        numB = displayVal;
+        numA = displayVal = operate(+numA, +numB, currentOperator);
+        updateDisplay(e);
     } else {
         numB = displayVal;
         numA = displayVal = operate(+numA, +numB, currentOperator);
         setOperator(e);
         updateDisplay(e);
-        displayVal = '';
+        //displayVal = '';
         counter = 0;
     }
 }
 
 
 function setOperator(e) {
-    currentOperator = e.type === 'keypress' ? e.key : e.target.dataset.key
+
+    clearSelectedOp()
+    if(e.key === 'Enter') {
+        currentOperator = '='
+    } else {
+        currentOperator = e.type === 'keypress' ? e.key : e.target.dataset.key
+    }
+    let selectOperator = document.querySelector(`.operator[data-key="${currentOperator}"]`)
+    selectOperator.classList.add("selected")
+
+    if(currentOperator === '=') {
+        setTimeout(clearSelectedOp,200)
+    }
+
 }
 
 function clear(e) {
@@ -136,7 +151,10 @@ function selectOp(e) {
 }
 
 function clearSelectedOp(e) {
-    e.target.id = ""
+    let selectedOp = document.querySelector('.selected')
+    if (selectedOp) {
+        selectedOp.classList.remove("selected")
+    }
 }
 
 function getKey (e) {
@@ -145,8 +163,9 @@ function getKey (e) {
 
 /***
  * Optional tasks:
- * Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1 - DONE
- * Selected state for operator buttons - In Progress
- * Update AC to just clear the latest number - DONE
- * Keyboard functionality
+ * DONE - Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1
+ * In Progress - Selected state for operator buttons
+ * DONE - Update AC to just clear the latest number
+ * DONE - Keyboard functionality - Partially Done (need to account for when user hits enter/return)
+ * 
  */
