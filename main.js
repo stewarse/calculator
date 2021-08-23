@@ -13,6 +13,7 @@ let numB = '';
 let currentOperator = '';
 let operatorArr =['+', '-', '*', '/','=','Enter']
 let counter = 0;
+let period;
 
 operands.forEach((operand) => operand.addEventListener('click', updateDisplay))
 
@@ -68,6 +69,13 @@ function divide(a, b) {
 function updateDisplay(e) {
     let temp = e.type === 'keypress' ? e.key : e.target.dataset.key
     console.log(e.target.classList)
+    if(temp === '.') {
+        if (!period) {
+            period = true
+        } else {
+            return
+        }
+    }
 
     if(counter <= 15) {
         if ((e.target.classList[0]  === 'operand' && e.key !== 'Enter' && e.key !== '=') || (e.type === 'keypress' && currentOperator !== '=' && operatorArr.indexOf(e.key) === -1)){
@@ -85,6 +93,7 @@ function updateDisplay(e) {
 }
 
 function evaluate(e) {
+    period = false
     if (currentOperator === '' /*|| currentOperator === '='*/ ) {
         setOperator(e)
         numA = displayVal
@@ -123,6 +132,7 @@ function clear(e) {
     if(clearBtn.id === 'clear'){
         displayVal = '0';
         counter = 0;
+        period = false
         updateDisplay(e);
         clearBtn.id = 'allClear';
         clearBtn.textContent = 'AC';
