@@ -8,12 +8,14 @@ const operators = document.querySelectorAll('.operator')
 
 
 let displayVal = '0';
-let numA = '';
+let numA = '0';
 let numB = '';
 let currentOperator = '';
-let operatorArr =['+', '-', '*', '/','=','Enter']
+const operatorArr =['+', '-', '*', '/','=','Enter']
 let counter = 0;
-let period;
+let period = false;
+const calculatorArr = ["0","1","2","3","4","5","6","7","8","9",".",...operatorArr]
+
 
 operands.forEach((operand) => operand.addEventListener('click', updateDisplay))
 
@@ -98,15 +100,22 @@ function evaluate(e) {
         setOperator(e)
         numA = displayVal
         displayVal = ''
-    } else {
-        numB = displayVal;
-        numA = displayVal = operate(+numA, +numB, currentOperator);
-        updateDisplay(e);
-        if ( e.key !== '=' || e.key !== 'Enter' || e.target.dataset.key !== '=' ){ 
-            setOperator(e);
+    }  else {
+        if(numB !== '' || displayVal !== ''){
+            numB = displayVal;
+            numA = displayVal = operate(+numA, +numB, currentOperator);
+            updateDisplay(e);
+            displayVal = '';
+            counter = 0;
+            clearSelectedOp()
         }
-        displayVal = '';
-        counter = 0;
+        if ( e.key !== '=' && e.key !== 'Enter' && e.target.dataset.key !== '=' ){ 
+            setOperator(e);
+        } else {
+            clearSelectedOp()
+            setSelectedOp(e)
+        }
+
     }
 }
 
@@ -119,12 +128,7 @@ function setOperator(e) {
     } else {
         currentOperator = e.type === 'keypress' ? e.key : e.target.dataset.key
     }
-    let selectOperator = document.querySelector(`.operator[data-key="${currentOperator}"]`)
-    selectOperator.classList.add("selected")
-
-    if(currentOperator === '=') {
-        setTimeout(clearSelectedOp,200)
-    }
+    setSelectedOp(e)
 
 }
 
@@ -139,8 +143,10 @@ function clear(e) {
         clearSelectedOp()
 
     } else {
-        displayVal = numA = numB = currentOperator = '';
+        displayVal = numA = '0';
+        currentOperator = numB = ''
         counter = 0;
+        updateDisplay(e)
     }
 } 
 
@@ -154,8 +160,19 @@ function changeSign(e) {
     updateDisplay(e)
 }
 
-function selectOp(e) {
-    e.target.id = "current-operator"
+function setSelectedOp(e) {
+    let selection = e.type === 'keypress' ? e.key : e.target.dataset.key;
+    
+    if (selection === '=' || selection === 'Enter') {
+        selection = '='
+    }
+
+    let selectedOperator = document.querySelector(`.operator[data-key="${selection}"]`)
+    selectedOperator.classList.add("selected")
+
+    if(selection === '=') {
+        setTimeout(clearSelectedOp,200)
+    }
 }
 
 function clearSelectedOp() {
@@ -166,15 +183,21 @@ function clearSelectedOp() {
 }
 
 function getKey (e) {
-    operatorArr.indexOf(e.key) === -1 ? updateDisplay(e) : evaluate(e)
+    console.log(e)
+
+    if(calculatorArr.indexOf(e.key)  !== -1){
+        operatorArr.indexOf(e.key) === -1 ? updateDisplay(e) : evaluate(e)
+    }
 }
 
 /***
  * Optional tasks:
- * DONE - Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1
+ * DONE - Enhance: Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1
  * DONE - Selected state for operator buttons
  * DONE - Update AC to just clear the latest number
  * DONE - Keyboard functionality - Partially Done (need to account for when user hits enter/return)
- * Bug Fix for chaining calculations and the selected operator functionality
- * 
+ * DONE Bug Fix for chaining calculations and the selected operator functionality
+ * Bug Fix: Handle when a user enters a operator first thing
+ * DONE - Bug Fix: Prevent a user from entering non-calculator symbols
+ * DONE - Bug Fix: When a user enters AC as the first button
  */
