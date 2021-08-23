@@ -59,7 +59,8 @@ function multiply(a, b) {
 function divide(a, b) {
 
     if(b == 0) {
-        return alert("WTFYD")
+        alert("WTFYD")
+        return 0
     }
     return (100 * a) / (100 * b); 
 }
@@ -70,7 +71,6 @@ function updateDisplay(e) {
 
     if(counter <= 15) {
         if ((e.target.classList[0]  === 'operand' && e.key !== 'Enter' && e.key !== '=') || (e.type === 'keypress' && currentOperator !== '=' && operatorArr.indexOf(e.key) === -1)){
-                displayVal = ''
             if (clearBtn.id === 'allClear') {
                 displayVal = ''
                 clearBtn.textContent = 'C'
@@ -89,16 +89,14 @@ function evaluate(e) {
         setOperator(e)
         numA = displayVal
         displayVal = ''
-    } else if (currentOperator === '=') {
-        numB = displayVal;
-        numA = displayVal = operate(+numA, +numB, currentOperator);
-        updateDisplay(e);
     } else {
         numB = displayVal;
         numA = displayVal = operate(+numA, +numB, currentOperator);
-        setOperator(e);
         updateDisplay(e);
-        //displayVal = '';
+        if ( e.key !== '=' || e.key !== 'Enter' || e.target.dataset.key !== '=' ){ 
+            setOperator(e);
+        }
+        displayVal = '';
         counter = 0;
     }
 }
@@ -164,8 +162,9 @@ function getKey (e) {
 /***
  * Optional tasks:
  * DONE - Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1
- * In Progress - Selected state for operator buttons
+ * DONE - Selected state for operator buttons
  * DONE - Update AC to just clear the latest number
  * DONE - Keyboard functionality - Partially Done (need to account for when user hits enter/return)
+ * Bug Fix for chaining calculations and the selected operator functionality
  * 
  */
