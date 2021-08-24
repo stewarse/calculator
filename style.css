@@ -103,15 +103,17 @@ h1 {
   background-color: #abdae1;
 }
 
-.key {
-  height: 50px;
-  width: 100px;
-}
-
 .selected {
   background-color: #c9ada7;
   border: 2px solid white;
 }
+
+/*  Color Key that was visible during development to ensure a common color scheme
+.key {
+  height: 50px;
+  width: 100px;
+}
+*/
 
 /* 
  * Color Legend  

@@ -56,7 +56,7 @@ function subtract(a, b) {
 }
 
 function multiply(a, b) { 
-    return a * b;
+    return ((100 * a) * (100 * b)) / 10000;
 }
 
 function divide(a, b) {
@@ -81,8 +81,13 @@ function updateDisplay(e) {
 
     if(counter <= 15) {
         if ((e.target.classList[0]  === 'operand' && e.key !== 'Enter' && e.key !== '=') || (e.type === 'keypress' && currentOperator !== '=' && operatorArr.indexOf(e.key) === -1)){
-            if (clearBtn.id === 'allClear') {
+            if (temp === '.' && displayVal === '' ){
+                displayVal = '0'
+            } else if (temp !== '.' && displayVal === '0') {
                 displayVal = ''
+            }
+
+            if (clearBtn.id === 'allClear') {
                 clearBtn.textContent = 'C'
                 clearBtn.id = 'clear'
             } 
@@ -162,7 +167,7 @@ function changeSign(e) {
 
 function setSelectedOp(e) {
     let selection = e.type === 'keypress' ? e.key : e.target.dataset.key;
-    
+
     if (selection === '=' || selection === 'Enter') {
         selection = '='
     }
@@ -192,12 +197,14 @@ function getKey (e) {
 
 /***
  * Optional tasks:
- * DONE - Enhance: Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1
- * DONE - Selected state for operator buttons
- * DONE - Update AC to just clear the latest number
- * DONE - Keyboard functionality - Partially Done (need to account for when user hits enter/return)
- * DONE Bug Fix for chaining calculations and the selected operator functionality
- * Bug Fix: Handle when a user enters a operator first thing
+ * DONE - Enhancement: Update to fix scenarios where JavaScript divides "funkily" i.e. 12.2 / .1
+ * DONE - Enhancement: Selected state for operator buttons
+ * DONE - Enhancement: Update AC to just clear the latest number
+ * DONE - Enhancement: Keyboard functionality - Partially Done (need to account for when user hits enter/return)
+ * DONE - Bug Fix for chaining calculations and the selected operator functionality
+ * DONE - Bug Fix: Handle when a user enters a operator first thing
  * DONE - Bug Fix: Prevent a user from entering non-calculator symbols
  * DONE - Bug Fix: When a user enters AC as the first button
+ * DONE - Bug Fix: User allowed to enter multiple .'s 
+ * DONE - Bug Fix: Issue with . not always displaying 
  */
